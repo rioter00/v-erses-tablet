@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#ababab">
+  <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgo=" />
+
+  <title>V-erses Tablet</title>
+  <link rel="shortcut icon" href="favicon.ico" />
+  <link type="text/css" rel="stylesheet" href="/tablet-style.css" media="all"/>
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Lato&family=Open+Sans&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet" />
+  <script src="/socket.io/socket.io.js"></script>
+  <!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> -->
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
+  <script src="/jquery-3.4.1.min.js"></script>
+
+  <script src="/tablet-controller.js"></script>
+
+</head>
+
+<!-- 600 x 795 -->
+
+<body>
+  <dialog id="installContainer">
+    <button id="buttonInstall">
+      Install V.erses PWA
+    </button>
+  </dialog>
+
+  <div class="bounds" id="bounds">
+    <section id="animation-node">
+      <video id="animation" loop autoplay muted>
+      </video>
+    </section>
+
+    <section id="welcome-node">
+      <div class="header-container">
+        <div class="header gen-spacing">
+          <h1>Welcome to</h1>
+          <p class="verses">V.erses</p>
+        </div>
+      </div>
+      <div id="prompt">
+        <p id="prompt-text">touch to start</p>
+      </div>
+    </section>
+
+    <section id="text-node">
+      <!-- <div id="tablet">
+        -- placeholder to show witch tablet you are (will disappear in production)
+      </div> -->
+
+      <div class="amendment-header-container">
+        <div class="header gen-spacing">
+          <h2 class="main-title">The 10th Amendment</h2>
+          <p id="main-details"><i>The powers not delegated to the United States by the Constitution, nor prohibited by it to the States, are reserved to the States respectively, or to the people.</i>
+          </p>
+        </div>
+      </div>
+
+      <div class="vote-container gen-spacing">
+        <div>
+          <p>You have one minute to vote on this case.</p>
+          <div class="progress">
+            <div class="progress-bar" id="progress-bar"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="case-container">
+        <div class="header gen-spacing">
+          <h2 class="main-title">Facts of the Case</h2>
+          <p id="case-details">The Low-Level Radioactive Waste Management Act Amendments of 1985 required states alone
+            or
+            in compacts with other states to dispose of such radioactive waste within their borders. New York State and
+            Allegany and Cortland counties were frustrated in their compliance efforts by resistance from residents to
+            proposed radioactive waste sites and a lack of cooperation from neighboring states. New York filed suit
+            against the federal government, questioning the authority of Congress to regulate state waste management.
+          </p>
+          <h2 class="main-title">Question</h2>
+          <p id="case-question">Does the Low-Level Waste Act violate the Tenth Amendment?</p>
+        </div>
+      </div>
+
+
+      <div class="action-container gen-spacing" id="button-container">
+        <button class="action-button" id="for">
+          YES
+        </button>
+        <button class="action-button" id="against">
+          NO
+        </button>
+      </div>
+
+      <div class="vote-container gen-spacing">
+        <div>
+          <p>You have one minute to vote on this case.</p>
+        </div>
+        <div class="progress">
+          <div class="progress-bar" id="progress-bar"></div>
+        </div>
+      </div>
+
+    </section>
+
+    <section id="voted-node">
+      <div class="action-container" id="submitted-container">
+        <div class="header validation-spacing">
+          <h2 class="main-title">The votes are being counted!</h2>
+          <p id="validation-details">The parameters of the sounds about to be played by the states have been decided by your Supreme Court vote.</p>
+        </div>
+      </div>
+    </section>
+    </div>
+
+    <script>
+      if('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw.js')
+          .then(function() {
+                console.log('Service Worker Registered');
+          });
+      }
+    </script>
+</body>
+
+</html>
