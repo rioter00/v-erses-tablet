@@ -35,16 +35,20 @@ window.addEventListener('beforeinstallprompt', (event) => {
   // divInstall.showModal();
 });
 
-window.oncontextmenu = function(event) {
-  event.preventDefault();
-  event.stopPropagation();
-  return false;
-};
+
+// disabled the following code for for debugging purposes
 
 // disable context menu
-document.addEventListener("contextmenu", function(e) {
-  e.preventDefault();
-  });
+// window.oncontextmenu = function(event) {
+//   event.preventDefault();
+//   event.stopPropagation();
+//   return false;
+// };
+
+// // disable context menu
+// document.addEventListener("contextmenu", function(e) {
+//   e.preventDefault();
+//   });
 
 
 // called when DOM is ready
@@ -126,17 +130,16 @@ window.addEventListener('appinstalled', (event) => {
 
   // load animation
   var animation = document.getElementById("animation");
-  animation.src = `/animations/screen${tablet}.mp4`;
+  let ranAnimation = (Math.floor(Math.random() * 8) + 1);
+  animation.src = `/animations/screen${ranAnimation}.mp4`;
   animation.load();
   animation.onloadeddata = function () {
     animation.play();
   };
   animation.play();
-  // aniNode.appendChild(aniImg);
-  // aniImg.className = "animation";
 
-  // join Collab-Hub Server with tablet number
-  const socket = io("/hub", {
+  // join Collab-Hub Server with tablet number, tablet number no longer matters (6/20/2022)
+  const socket = io("https://v-erses.herokuapp.com/hub", {
     query: {
       username: tablet,
     },
@@ -150,55 +153,20 @@ window.addEventListener('appinstalled', (event) => {
     room: "tablets",
   });
 
-  setInterval(() => {
-    const start = Date.now();
-    const pingObject = { start };
-    socket.volatile.emit("chPing", pingObject);
-  }, 3000);
 
-  socket.emit("getAmendment");
+  // incase reconnect, get current case
   socket.emit("getCase");
 
-  //
-  socket.emit("getTimes");
+  // incase reconnect, get current amendment
   socket.on("setVoteTime", (data) => {
     voteTime = data.time;
     console.log("vote time set: " + voteTime);
-    // bounds.scrollTop = 1280;
-  });
-
-  socket.on("changeReadTime", (data) => {
-    readTime = data.time;
-    console.log("read time set: " + readTime);
-  });
-
-  socket.on("changeVoteTime", (data) => {
-    voteTime = data.time;
-    console.log("vote time set: " + voteTime);
-  });
-
-  socket.on("chPingBack", (data) => {
-    const tempPing = Date.now() - data.start;
-    if (tempPing !== ping) {
-      $("#ping").text("Ping: " + tempPing + " ms");
-      ping = tempPing;
-    }
-  });
-
-  socket.on("serverMessage", (data) => {
-    console.log("--------- received serverMessage: " + data.message);
   });
 
   socket.on("changeCase", (data) => {
     changeCase(data.case);
     voted = false;
     displayTextNode();
-  });
-
-  socket.on("getAmendment", () => {
-    socket.emit("amendment", {
-      amendment: currentAmendment,
-    });
   });
 
   socket.on("voteTime", (data) => {
@@ -250,16 +218,8 @@ window.addEventListener('appinstalled', (event) => {
   });
 
   function stopVoteSession() {
-    // stopVoteProgressBar();
-    // disableButtons();
-    // clearInterval(voteSession);
     voted = true;
-    // resetCurrentVoteTime();
     enableSubmitted();
-  }
-
-  function resetCurrentVoteTime() {
-    currentVoteTime = 0;
   }
 
   function displayTextNode(){
@@ -284,13 +244,10 @@ window.addEventListener('appinstalled', (event) => {
     voted = false;
 
     currentCase = newCase;
-    // load case information
+    // display case information
     $("#case-details").text(caseTexts[currentCase]);
     $("#case-question").text(caseQuestions[currentCase]);
-    //
-    // disableButtons();
     disableSubmitted();
-    // enableReadReminder();
   }
 
   function sendVote(vote) {
@@ -301,24 +258,7 @@ window.addEventListener('appinstalled', (event) => {
       amendment: currentAmendment,
     });
   }
-  //
-
-  function startMessageFade(listItemId) {
-    // $("#"+listItemId).stop().fadeIn(10).delay( 1800 ).fadeOut( 400 );
-    let toVar = setTimeout(messageFade, 3000, listItemId);
-    return toVar;
-  }
-
-  function disableReadReminder() {
-    var buttons = document.getElementById("read-container");
-    buttons.style.display = "none";
-  }
-
-  function enableReadReminder() {
-    var buttons = document.getElementById("read-container");
-    buttons.style.display = "flex";
-  }
-
+  
   function disableButtons() {
     var buttons = document.getElementById("button-container");
     buttons.style.display = "none";
@@ -342,12 +282,12 @@ window.addEventListener('appinstalled', (event) => {
     votedNode.style.display = "block";
   }
 
-  function stopVoteProgressBar() {
-    // document.getElementById("vote-progress-bar").value = 0;
-    progressBars.forEach(element => {
-      element.value = 0;
-    });
-  }
+  // function stopVoteProgressBar() {
+  //   // document.getElementById("vote-progress-bar").value = 0;
+  //   progressBars.forEach(element => {
+  //     element.value = 0;
+  //   });
+  // }
 
   //
 
@@ -383,10 +323,6 @@ window.addEventListener('appinstalled', (event) => {
     "Can the Federal Government force states to follow international treaties, or should the states have the power to choose not to abide by treaties signed by the Federal Government?",
   ];
 
-  socket.emit("addUsername", {
-    username: "tablet" + tablet,
-  });
-
   // interface functions
   $("#for").click(function () {
     console.log(tablet + " clicked for");
@@ -417,9 +353,6 @@ window.addEventListener('appinstalled', (event) => {
     return false;
   });
 
-  // hide vote buttons
-  // disableButtons();
-  // hide response
+
   disableSubmitted();
-  // hide read  reminder
 });

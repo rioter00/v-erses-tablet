@@ -1,5 +1,5 @@
-/* 510 * 768 */
-/* <!-- 600 x 795 --> */
+/* 510 * 768 (06/06/21) */
+/* <!-- 600 x 795 (11/11/21)--> */
 
 :root {
   --tablet-width: 510px;
@@ -55,21 +55,19 @@ dialog::backdrop {
 }
 
 body {
-  /* overflow: hidden; */
-  /* scroll-behavior: none; */
   font-size: 18px;
   font-family: var(--default-text-family);
   background-color: var(--dark-color);
   color: var(--default-white);
   margin: 0;
   background-color: #000;
-  -webkit-touch-callout: none;
+  /* -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   -o-user-select: none;
-  user-select: none;
+  user-select: none; */
 }
 
 .test {
@@ -110,11 +108,7 @@ body {
  }
 
 .bounds {
-  /* overflow: scroll; */
-  /* overflow-y: scroll; */
   position: absolute;
-  /* display: flex; */
-  /* flex-direction: column; */
   width: 600px;
   height: 795px;
 }
@@ -130,7 +124,6 @@ video  {
   left: 0;
   width: 600px;
   height: 795px;
-  /* overflow: scroll; */
 }
 
 #welcome-node {
@@ -140,7 +133,6 @@ video  {
   left: 0;
   width: 600px;
   height: 795px;
-  /* background-color: black; */
 }
 
 #voted-node {
@@ -358,9 +350,7 @@ progress {
   color: var(--accent-blue); 
   padding: 0 60px;
   background: var(--accent-blue);  
-  /* margin: 0 60px; */
 } 
-
 
 #main-title {
   margin-bottom: 30px;
@@ -377,11 +367,4 @@ progress {
 
 button {
   color: var(--dark-color);
-}
-
-a {
-  /* color: var(--dark-color); */
-  text-decoration: underline;
-  padding-bottom: 5px;
-  line-height: 1.2em;
 }

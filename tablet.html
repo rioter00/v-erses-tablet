@@ -13,16 +13,16 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" />
   <link href="https://fonts.googleapis.com/css2?family=Lato&family=Open+Sans&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet" />
-  <script src="/socket.io/socket.io.js"></script>
-  <!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> -->
-  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
+  <!-- <script src="/socket.io/socket.io.js"></script> -->
+  <script src="https://cdn.socket.io/4.0.1/socket.io.min.js" crossorigin="anonymous"></script>
+
   <script src="/jquery-3.4.1.min.js"></script>
 
   <script src="/tablet-controller.js"></script>
 
 </head>
 
-<!-- 600 x 795 -->
+<!-- Tablet size 600 x 795 -->
 
 <body>
   <dialog id="installContainer">
@@ -50,10 +50,6 @@
     </section>
 
     <section id="text-node">
-      <!-- <div id="tablet">
-        -- placeholder to show witch tablet you are (will disappear in production)
-      </div> -->
-
       <div class="amendment-header-container">
         <div class="header gen-spacing">
           <h2 class="main-title">The 10th Amendment</h2>
@@ -104,7 +100,6 @@
           <div class="progress-bar" id="progress-bar"></div>
         </div>
       </div>
-
     </section>
 
     <section id="voted-node">

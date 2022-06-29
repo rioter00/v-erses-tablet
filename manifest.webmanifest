@@ -4,7 +4,7 @@
   "display": "fullscreen",
   "description": "Web App for V-erses Installation Tablet 1. Created by Nick Hwang.",
   "scope": "/",
-  "start_url": "https://v-erses.herokuapp.com/tablet/1",
+  "start_url": "https://v-erses.herokuapp.com/tablet.html",
   "name": "v-erses",
   "short_name": "v-erses",
   "orientation": "portrait",
